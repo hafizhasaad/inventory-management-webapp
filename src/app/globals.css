@@ -1,0 +1,52 @@
+import "./globals.css";
+import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Inventory Management",
+  description: "Modern inventory management dashboard",
+};
+
+const navItems = [
+  { href: "/", label: "Dashboard" },
+  { href: "/products", label: "Products" },
+  { href: "/categories", label: "Categories" },
+  { href: "/suppliers", label: "Suppliers" },
+  { href: "/transactions", label: "Transactions" },
+];
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="bg-slate-100 text-slate-900 antialiased">
+        <div className="min-h-screen">
+          <header className="border-b border-slate-200 bg-white/95 backdrop-blur">
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+              <Link href="/" className="text-xl font-bold text-slate-900">
+                InventoryFlow
+              </Link>
+              <nav className="hidden gap-6 md:flex">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-sm font-medium text-slate-600 transition hover:text-brand-600"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+              <Link
+                href="/products/new"
+                className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-700"
+              >
+                New Product
+              </Link>
+            </div>
+          </header>
+          <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">{children}</main>
+        </div>
+      </body>
+    </html>
+  );
+}
